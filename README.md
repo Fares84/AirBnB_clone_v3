@@ -154,8 +154,8 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-Fares Sassi - [Github](https://https://github.com/Fares84) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/garthus23) / [Twitter](https://twitter.com/earthtojhuang)
+Fares Sassi - [Github](https://https://github.com/Fares84) / [Twitter](https://twitter.com/faressassi)  
+Gregory Arthus - [Github](https://github.com/garthus23) / [Twitter]()
 
 Second part of Airbnb: Joann Vuong
 ## License
