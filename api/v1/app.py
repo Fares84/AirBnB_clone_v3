@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Module for Flask REST application """
+""" Module for Flask REST's application """
 
 from flask import Flask, Blueprint
 from models import storage
