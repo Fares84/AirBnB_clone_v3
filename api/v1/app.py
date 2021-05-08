@@ -5,7 +5,7 @@ from flask import Flask, Blueprint
 from models import storage
 from api.v1.views import app_views
 from os import getenv
-from flask import make_response
+from flask import make_response, jsonify
 
 
 app = Flask(__name__)
