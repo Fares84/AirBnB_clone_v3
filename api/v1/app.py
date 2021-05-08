@@ -5,7 +5,7 @@ from flask import Flask, Blueprint
 from models import storage
 from api.v1.views import app_views
 from os import getenv
-from flas import make_response
+from flask import make_response
 
 
 app = Flask(__name__)
@@ -18,10 +18,10 @@ def teardown(error):
     storage.close()
 
 
-@app.teardown_errorhandler(404)
-def not_found(exception):
+@app.errorhandler(404)
+def not_found(error):
     """ page not found """
-    return make_response({'error': 'Not found'}, 404)
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
