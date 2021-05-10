@@ -5,6 +5,7 @@ from flask import jsonify, abort, request, make_response
 from models import storage
 from models.place import Place
 from models.city import City
+from models.user import User
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -30,7 +31,7 @@ def get_place(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route('/places/<place_id>', methods=['GET'],
+@app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_place(place_id):
     """ delete a place objects """
@@ -63,3 +64,19 @@ def create_place(city_id):
     place = Place(**kwargs)
     place.save()
     return make_response(jsonify(place.to_dict()), 201)
+
+
+@app_views.route('/places/<place_id>', methods=['PUT'],
+                 strict_slashes=False)
+def new_place(place_id):
+    """ update an existing object """
+    place = storage.get('Place', place_id)
+    if place is None:
+        abort(404)
+    if not request.get_json():
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+    for key, val in request.get_json().items():
+        if key not in ['id', 'created_at', 'updated_at']:
+            setattr(place, key, val)
+    place.save()
+    return jsonify(place.to_dict())
