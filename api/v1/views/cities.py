@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" creates a new view fo City to handle all default Restful API actions """
+"""create a new view for City objects that handles all default RestFul API."""
+
 from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
@@ -9,8 +10,8 @@ from models.state import State
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
-def states_cities(state_id):
-    """ retrieve all City object of a State """
+def ret_allcities(state_id):
+    """retrieve all City object of a State"""
     state = storage.get('State', state_id)
     if state is None:
         abort(404)
@@ -22,8 +23,8 @@ def states_cities(state_id):
 
 @app_views.route('/cities/<string:city_id>', methods=['GET'],
                  strict_slashes=False)
-def allcities(city_id):
-    """ retrieve information from a given city """
+def retr_city(city_id):
+    """retrieve information from a given city"""
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
@@ -33,7 +34,7 @@ def allcities(city_id):
 @app_views.route('/cities/<string:city_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_city(city_id):
-    """ delete a City obect """
+    """delete a City object"""
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
@@ -42,10 +43,10 @@ def delete_city(city_id):
     return jsonify({})
 
 
-@app_views.route('/states.<string:state_id>/cities', methods=['POST'],
+@app_views.route('/states/<string:state_id>/cities', methods=['POST'],
                  strict_slashes=False)
-def create_obj(state_id):
-    """ create an object """
+def creat_obj(state_id):
+    """create an object"""
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
@@ -63,14 +64,14 @@ def create_obj(state_id):
 @app_views.route('/cities/<string:city_id>', methods=['PUT'],
                  strict_slashes=False)
 def new_obj(city_id):
-    """ update an existing object """
+    """update an existing object"""
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
-    for key, val, in request.get_json().items():
-        if key not in ['id', 'created_at', 'updated_at']:
-            setattr(city, key, val)
+    for k, v in request.get_json().items():
+        if k not in ['id', 'created_at', 'updated_at']:
+            setattr(city, k, v)
     city.save()
     return jsonify(city.to_dict())
