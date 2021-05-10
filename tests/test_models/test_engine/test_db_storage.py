@@ -86,7 +86,7 @@ class TestFileStorage(unittest.TestCase):
         models.storage.new(new_state)
         models.storage.save()
         get = models.storage.get(State, new_state.id)
-        self.asserTrue(get)
+        self.assertTrue(get)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
@@ -96,4 +96,4 @@ class TestFileStorage(unittest.TestCase):
         models.storage.new(new_state)
         models.storage.save()
         new_count = models.storage.count()
-        self.asserNotEqual(count, new_count)
+        self.assertNotEqual(count, new_count)
