@@ -1,17 +1,18 @@
 #!/usr/bin/python3
 """ City objs that handles all default Restful API actions """
+
 from api.v1.views import app_views
-from flask import jsonify, abort, request, make_response
+from flask import jsonify, abort, make_response, request
 from models import storage
-from models.place import Place
-from models.city import City
 from models.user import User
+from models.city import City
+from models.place import Place
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
 def place_list(city_id):
-    """ retrieve all Place list object of a City """
+    """retrieve all Place list object of a City"""
     city = storage.get('City', city_id)
     if city is None:
         abort(404)
@@ -23,8 +24,8 @@ def place_list(city_id):
 
 @app_views.route('/places/<place_id>', methods=['GET'],
                  strict_slashes=False)
-def get_place(place_id):
-    """ retrieve information from a given place """
+def catch_place(place_id):
+    """retrieve information from a given place"""
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
@@ -34,7 +35,7 @@ def get_place(place_id):
 @app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_place(place_id):
-    """ delete a place objects """
+    """delete a place object"""
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
@@ -45,8 +46,8 @@ def delete_place(place_id):
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'],
                  strict_slashes=False)
-def create_place(city_id):
-    """ create an object """
+def creat_place(city_id):
+    """create an object"""
     kwargs = request.get_json()
     city = storage.get("City", city_id)
     if city is None:
@@ -69,7 +70,7 @@ def create_place(city_id):
 @app_views.route('/places/<place_id>', methods=['PUT'],
                  strict_slashes=False)
 def new_place(place_id):
-    """ update an existing object """
+    """update an existing object"""
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
