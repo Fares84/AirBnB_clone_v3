@@ -38,7 +38,7 @@ def delete_user(user_id):
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
-def create_user(state_id):
+def create_user():
     """ create a new user object """
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
