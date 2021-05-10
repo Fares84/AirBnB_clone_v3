@@ -12,7 +12,7 @@ def get_amenities():
     amenities = []
     for amenity in storage.all("Amenity").values():
         amenities.append(amenity.to_dict())
-    return jsonify(all_states)
+    return jsonify(amenities)
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET'],
@@ -29,10 +29,10 @@ def getamenity(amenity_id):
                  strict_slashes=False)
 def del_amenity(amenity_id):
     """ delete an object amenity based on its amenity_id """
-    state = storage.get("Amenity", amenity_id)
+    amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
         abort(404)
-    state.delete()
+    amenity.delete()
     storage.save()
     return jsonify({})
 
@@ -54,7 +54,7 @@ def post_amenity():
 def put_amenity(amenity_id):
     """ update an existing object amenity """
     amenity = storage.get('Amenity', amenity_id)
-    if state is None:
+    if amenity is None:
         abort(404)
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
