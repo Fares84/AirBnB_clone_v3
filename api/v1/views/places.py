@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" City objs that handles all default Restful API actions """
+"""create a new view for City objects that handles all default RestFul API."""
 
 from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
@@ -11,7 +11,7 @@ from models.place import Place
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-def place_list(city_id):
+def ret_Place_list(city_id):
     """retrieve all Place list object of a City"""
     city = storage.get('City', city_id)
     if city is None:
@@ -24,7 +24,7 @@ def place_list(city_id):
 
 @app_views.route('/places/<place_id>', methods=['GET'],
                  strict_slashes=False)
-def catch_place(place_id):
+def retr_place(place_id):
     """retrieve information from a given place"""
     place = storage.get('Place', place_id)
     if place is None:
@@ -76,8 +76,8 @@ def new_place(place_id):
         abort(404)
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
-    for key, val in request.get_json().items():
-        if key not in ['id', 'created_at', 'updated_at']:
-            setattr(place, key, val)
+    for k, v in request.get_json().items():
+        if k not in ['id', 'created_at', 'updated_at']:
+            setattr(place, k, v)
     place.save()
-    return jsonify(place.to_dict()), 200
+    return jsonify(place.to_dict())
