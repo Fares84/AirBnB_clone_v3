@@ -70,9 +70,8 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """ get the class name and id """
-        from models import storage
-        objs = storage.all(cls)
+        """ method to retrieve one object """
+        objs = models.storage.all(cls)
         for obj in objs.values():
             if obj.id == id:
                 return obj
@@ -80,8 +79,7 @@ class FileStorage:
 
     def count(self, cls=None):
         """ count the number of objects in storage """
-        from models import storage
-        if cls:
-            return len(storage.all(cls))
+        if cls is None:
+            return len(self.all())
         else:
-            return len(storage.all())
+            return len(self.all(cls))
