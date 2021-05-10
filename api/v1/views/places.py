@@ -80,4 +80,4 @@ def new_place(place_id):
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(place, key, val)
     place.save()
-    return jsonify(place.to_dict())
+    return jsonify(place.to_dict()), 200
